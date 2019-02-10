@@ -1,0 +1,8 @@
+#
+#Sun Feb 10 18:52:04 UTC 2019
+Name=BLOCKCHAIN_SERVICE
+URL=https\://hyperledger-fabric.cfapps.eu10.hana.ondemand.com/api/v1/chaincodes/44da5136-2cb8-4d83-bb7a-6ad9c6d66d14-com-digitallab-pharmanet-serializationledger/1/
+ProxyType=Internet
+Type=HTTP
+Authentication=NoAuthentication
+Description=Invoke Blockchain API

@@ -1,0 +1,8 @@
+#
+#Sun Feb 10 18:52:11 UTC 2019
+Name=ML_TOKEN
+URL=https\://l2ww.authentication.eu10.hana.ondemand.com/oauth/token
+ProxyType=Internet
+Type=HTTP
+Authentication=NoAuthentication
+Description=ML oAuth Token

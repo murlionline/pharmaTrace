@@ -1,0 +1,8 @@
+#
+#Sun Feb 10 18:52:07 UTC 2019
+Name=ML_SERVICE_OCR
+URL=https\://mlfproduction-fs-ocr.cfapps.eu10.hana.ondemand.com/api/v2/image/ocr
+ProxyType=Internet
+Type=HTTP
+Authentication=NoAuthentication
+Description=ML API to Invoke Image Classification

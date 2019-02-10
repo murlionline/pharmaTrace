@@ -1,0 +1,8 @@
+#
+#Sun Feb 10 18:52:06 UTC 2019
+Name=HANA_SERVICE
+URL=https\://shanghai-dev-pharma00-js.cfapps.eu10.hana.ondemand.com/pharma00.xsodata
+ProxyType=Internet
+Type=HTTP
+Authentication=NoAuthentication
+Description=HANA API to obtain Product Master Data

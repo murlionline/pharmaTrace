@@ -1,0 +1,78 @@
+.workListBox2{
+	height:30vh !important;
+} 
+
+.imagevh{
+	height:25vh !important;
+} 
+
+.fileUploaderStyle {
+    background: url('../model/camera_blue.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-color: #FFFFFF;
+    border-radius: 100%;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #0076CB;
+}
+
+.fileUploaderStyle1 .sapMBtn {
+    height: 40vh;
+    width: 40vh;
+    visibility: hidden;
+} 
+
+.fileUploaderStyle2 {
+    position: absolute;
+    left: 325px;
+    top: -25px;
+    z-index: 1000;
+} 
+
+.fileUploaderStyle2 .sapMBtn {
+    height: 7vh;
+    width: 7vh;
+    visibility: hidden;
+} 
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    height: 100%;
+    text-align: center;
+}
+
+.hintFlexBox {
+	position: absolute;
+	width: 100%;
+	left: -20px;
+}
+
+.hintFlexBox .sapMText  {
+	width: 100%;
+    position: relative;
+    left: -20px;
+    top: 100px;
+    font-size: 20px;
+}
+
+.hintFlexBox .sapMTitle  {
+	width: 100%;
+    position: relative;
+    top: 55px;
+    font-size: 20px;
+}
+
+.imageErrorTitle {
+	display: block;
+    color: #C0392B;
+}

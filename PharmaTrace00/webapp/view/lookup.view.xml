@@ -1,0 +1,81 @@
+<mvc:View controllerName="com.sap.PharmaTrace00.controller.lookup" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:mc="sap.suite.ui.microchart" xmlns:u="sap.ui.unified" xmlns:f="sap.ui.layout.form" xmlns="sap.m">
+	<App>
+		<pages>
+			<Page showHeader="true" title="Pharma Track and Trace" showFooter="true" showNavButton="false">
+				<content>
+					<FlexBox id="flexBoxHint" width="100%" visible="false" alignItems="Center" justifyContent="Center">
+						<Title level="H3" text="Error!" class="imageErrorTitle "/>
+						<Text width="100%" text="Please select a product image which should be classified!"></Text>
+					</FlexBox>
+					<FlexBox id="uploadBox" class="workListBox" alignItems="Center" justifyContent="Center" width="100%" height="100%" visible="true">
+						<u:FileUploader id="fileUploader" name="file" tooltip="Upload any image" typeMissmatch="handleTypeMissmatch" class="fileUploaderStyle"
+							buttonOnly="true" change="handleValueChange" fileType="jpg,jpeg,png,jpe" placeholder="Image" buttonText="Browse" style="Transparent"
+							icon="sap-icon://camera" iconOnly="true"></u:FileUploader>
+						<FlexBox id="vBoxImage" width="100%" visible="false" alignItems="Center" justifyContent="Center">
+							<items>
+								<Image id="upImage" src="{/image}" densityAware="false" class="imagevh"></Image>
+							</items>
+						</FlexBox>
+					</FlexBox>
+					<f:SimpleForm id="SimpleFormDisplay354" editable="false" layout="ResponsiveGridLayout" title="Product Details" labelSpanXL="3"
+						labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+						columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+						<f:content>
+							<Label text="Manufacturer ID"/>
+							<Text id="manufacturerID" text=""/>
+							<Label text="GTIN"/>
+							<Text id="gtin" text=""/>
+							<Label text="Drug Name"/>
+							<Text id="drugName" text=""/>
+							<Label text="Product ID"/>
+							<Text id="productID" text=""/>
+							<Label text="Product Name"/>
+							<Text id="productName" text=""/>
+							<Label text="Supplier Name"/>
+							<Text id="supplierName" text=""/>
+							<Label text="Category"/>
+							<Text id="category" text=""/>
+							<Label text="Unit Price"/>
+							<Text id="unitPrice" text=""/>
+							<Label text="Units In Stock"/>
+							<Text id="unitsInStock" text=""/>
+						</f:content>
+					</f:SimpleForm>
+					<Table id="BlockchainTable" items="{ path:'/reviews' }">
+						<columns>
+							<Column>
+								<Text text="Product"/>
+							</Column>
+							<Column>
+								<Text text="Serial No"/>
+							</Column>
+							<Column>
+								<Text text="Dispatched By"/>
+							</Column>
+							<Column>
+								<Text text="Batch No"/>
+							</Column>
+							<Column>
+								<Text text="Scan No"/>
+							</Column>
+						
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{pname}"/>
+									<Text text="{serialno}"/>
+									<Text text="{manufacturer}"/>
+									<Text text="{batchno}"/>
+									<Text text="{scanno}"/>
+								
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

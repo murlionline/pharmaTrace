@@ -1,0 +1,8 @@
+#
+#Sun Feb 10 18:52:05 UTC 2019
+Name=BLOCKCHAIN_TOKEN
+URL=https\://l2ww.authentication.eu10.hana.ondemand.com/oauth/token
+ProxyType=Internet
+Type=HTTP
+Authentication=NoAuthentication
+Description=Blockchain oAuth Token

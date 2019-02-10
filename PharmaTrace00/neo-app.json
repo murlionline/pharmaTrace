@@ -1,0 +1,71 @@
+{
+  "welcomeFile": "/webapp/index.html",
+  "routes": [
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources"
+      },
+      "description": "SAPUI5 Test Resources"
+    }
+    ,{
+    	"path": "/blockchaintoken",
+    	"target": {
+    		"type": "destination",
+    		"name": "BLOCKCHAIN00_TOKEN"
+    	},
+    	"description": "Obtain Blockchain Token"
+    },
+        {
+    	"path": "/blockchainservice",
+    	"target": {
+    		"type": "destination",
+    		"name": "BLOCKCHAIN00_SERVICE"
+    	},
+    	"description": "Invoke Blockchain Service"
+    },
+        {
+    	"path": "/mltoken",
+    	"target": {
+    		"type": "destination",
+    		"name": "ML00_TOKEN"
+    	},
+    	"description": "Obtain ML Token"
+    },
+        {
+    	"path": "/mlservice",
+    	"target": {
+    		"type": "destination",
+    		"name": "ML00_SERVICE_OCR"
+    	},
+    	"description": "Invoke ML Service"
+    },
+     {
+    	"path": "/hanaservice",
+    	"target": {
+    		"type": "destination",
+    		"name": "HANA00_SERVICE"
+    	},
+    	"description": "Invoke HANA Service"
+    }
+  ],
+  "sendWelcomeFileRedirect": true
+}
+
+
+
+
+
+
+
