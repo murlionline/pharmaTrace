@@ -1,0 +1,26 @@
+GTIN,name,manufacturer,category,supplier,unitPrice,unitInStock,rating
+19080016662784,Vanquish,Glaxo,Analgesic,Glenmark,45,250,8
+23358822076743,Zebutal,Roche,Analgesic,Hospira,80,180,8
+92834277602356,Myophen,Ranbaxy,Analgesic,Heritage,32,300,7
+49210309740254,Advil,Pfizer,Analgesic,Sandoz,34,380,7
+26123744305034,Dologesic,Glaxo,Analgesic,Virtus,67,130,9
+76279315790901,RhinoFlex,Pfizer,Analgesic,Heritage,45,89,6
+92006602066762,Vanatol,Ranbaxy,Analgesic,Sandoz,50,23,8
+89556412400424,Seldane,Merck & Co,Antihistamines,Virtus,44,170,9
+32193043490162,Promethegan,Pfizer,Antihistamines,Baxter,12,49,6
+38174786552758,Benadryl,Glaxo,Antihistamines,Baxter,53,110,5
+80771959531264,Alavert,Torrent Pharma,Antihistamines,Glenmark,56,190,8
+72045560724952,Dicopanol,Ranbaxy,Antihistamines,Hospira,23,210,9
+41868526456367,Aerobid,Ranbaxy,corticosteroids,Heritage,52,150,9
+44952321456682,Flovent,Torrent Pharma,corticosteroids,Baxter,56,98,9
+59645166447378,Asmanex,Glaxo,corticosteroids,Actavis,12,55,7
+29065476645726,Pulmicort,Astra Zeneca,corticosteroids,Actavis,33,180,8
+20142960161338,Trintellix,Amarin,Antidepressants,Glenmark,42,55,9
+19878243287560,Budeprion,Astra Zeneca,Antidepressants,Sandoz,11,199,8
+56486770851539,Wellbutrin,Roche,Antidepressants,Heritage,74,159,8
+30822950736010,Humulin,Janssen,Antidiabetic,Accord,62,390,8
+50789630541859,NovoLog,Eli Lilly,Antidiabetic,Glenmark,51,321,7
+56286571358408,Humalog,Pfizer,Antidiabetic,Virtus,45,109,9
+68611487992105,Daraprim,Glaxo,antimalarial,Hospira,23,65,8
+49384853686300,Doxy,Pfizer,antimalarial,Accord,12,24,7
+37900156901924,Periostat,Roche,antimalarial,Glenmark,56,34,9
