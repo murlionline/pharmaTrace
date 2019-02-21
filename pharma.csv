@@ -1,4 +1,4 @@
-﻿GTIN,Name,Manufacturer,Category,Supplier,unitPrice,unitInStock,rating
+﻿GTIN,name,manufacturer,category,supplier,unitPrice,unitInStock,rating
 19080016662784,Vanquish ,Glaxo,Analgesic,Glenmark,45,250,8
 23358822076743,Zebutal,Roche,Analgesic,Hospira,80,180,8
 92834277602356,Myophen ,Ranbaxy,Analgesic,Heritage,32,300,7
