@@ -8,8 +8,8 @@ sap.ui.define([
 	var accessToken = "";
 	var ml_clientId = "sb-e56c1387-f909-43af-b3f9-27b701bde488!b11004|ml-foundation-xsuaa-std!b540";
 	var ml_clientSecret = "QH7mvEkCF+49My230B6GCMdtjvw=";
-	var bs_clientId = "sb-16fc198f-0320-4885-9ebd-96f1eeafe789!b6148|na-420adfc9-f96e-4090-a650-0386988b67e0!b1836";
-	var bs_clientSecret = "mgqqlDrChGx++EP8fJUtcSi2imw=";
+	var bs_clientId = "sb-57fcb2d1-0f09-4823-8c37-7f22e736040b!b11004|na-420adfc9-f96e-4090-a650-0386988b67e0!b1836";
+	var bs_clientSecret = "fezRGDTEDDySqIK64PHx2X4ENtQ=";
 	var form = new FormData();
 	var productMaster = {};
 	var scanImageResult,drugName,gtin,manufacturerName,serialNo,batchNo;
@@ -173,14 +173,14 @@ sap.ui.define([
 			var payload = {
 				"ID": transactionId,
 				"assetType": "Asset.Serial",
-				"manufacturerId": manufacturerName,
+				"manufacturer": manufacturerName, //remove Id
 				"batchNo": batchNo,
 				"serialNo": serialNo,
 				"manufacturingDate": currentDate,
 				"scanNo": "01",
 				"scanBy": "Manufacturer",
-				"alias": drugName,
-				"description": drugName
+				"alias": drugName
+				//"description": drugName
 			};
 			
 			//Invoke the Hyperledger fabric API to update a record in the blockchain network
