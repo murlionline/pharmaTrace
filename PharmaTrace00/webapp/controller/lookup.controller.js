@@ -1,23 +1,24 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageToast",
-	"sap/m/Dialog"
-], function (Controller, MessageToast, Dialog) {
+	"sap/m/Dialog",
+	"sap/m/MessageBox"
+], function (Controller, MessageToast, Dialog, MessageBox) {
 	"use strict";
-
+	
 	var accessToken = "";
     var ml_clientId = "sb-e56c1387-f909-43af-b3f9-27b701bde488!b11004|ml-foundation-xsuaa-std!b540";
     var ml_clientSecret = "QH7mvEkCF+49My230B6GCMdtjvw=";
     var bs_clientId = "sb-57fcb2d1-0f09-4823-8c37-7f22e736040b!b11004|na-420adfc9-f96e-4090-a650-0386988b67e0!b1836";
     var bs_clientSecret = "fezRGDTEDDySqIK64PHx2X4ENtQ=";
-  	var form = new FormData();
+	var form = new FormData();
 	var productMaster = {};
 	var scanImageResult,drugName,gtin,manufacturerName,serialNo,batchNo;
-
+	
 	return Controller.extend("com.sap.PharmaTrace00.controller.lookup", {
 		onInit: function () {
 			this.getView().byId("fileUploader").addStyleClass("fileUploaderStyle1");
-
+			
 			var oModel1 = new sap.ui.model.json.JSONModel();
 			oModel1.setDefaultBindingMode("TwoWay");
 			this.getView().setModel(oModel1);
@@ -28,48 +29,50 @@ sap.ui.define([
 			var oBusyIndicator = new sap.m.BusyDialog();
 			var oView = this.getView();
 
-			var reader = new FileReader();
+			var reader = new FileReader(),
+				that = this,
+				oFile = oEvent.getParameters().files[0];
 			reader.onloadend = function () {
 				// var model = oView.getModel().getData();
 				// model.image = reader.result;
 				// oView.getModel().refresh();
-
+				
 				oView.byId("fileUploader").addStyleClass("fileUploaderStyle2");
 				oView.byId("uploadBox").setJustifyContent(null);
 				oView.byId("flexBoxHint").setVisible(false);
 				oView.byId("uploadBox").addStyleClass("workListBox2");
 				oView.byId("vBoxImage").setVisible(true);
-
+				
 				oView.getModel().setProperty("/image", reader.result);
+				that.callAPI(oFile, oView, oBusyIndicator, that);
 			};
 
 			reader.readAsDataURL(oEvent.getParameters().files[0]);
-			this.callAPI(oEvent.getParameters().files[0], oView, oBusyIndicator);
 		},
 
-		callAPI: async function (file, oView, oBusyIndicator) {
+		callAPI: async function (file, oView, oBusyIndicator, that) {
 			oBusyIndicator.open();
-			//var form = new FormData();
+			form = new FormData();
 			form.append("files", file);
-
-			var that = this;
+			
+			// var that = this;
 			try{
 				await this.invokeMLService(file, oView, oBusyIndicator, that);
 				await this.invokeHANAService(file, oView, oBusyIndicator, that);
 				await this.invokeHyperLedgerService(file, oView, oBusyIndicator, that);
 			}
 			catch(err){
-				MessageToast.show(err);
+				MessageBox.error(err);
 			}
-
+			
 			oBusyIndicator.close();
 
 		},
 
 		invokeMLService: function (file, oView, oBusyIndicator, that) {
-
+			
 			return new Promise(function(mainResolve, mainReject){
-
+				
 				var getMLAccessToken = new Promise(function(resolve, reject) {
 				// Obtain access token for ML Service
 					$.ajax({
@@ -90,8 +93,8 @@ sap.ui.define([
 						}
 					});
 				});
-
-
+				
+				
 				var invokeMLOCRService = function(sToken){
 					return new Promise(function(resolve, reject) {
 						// Invoke ML OCR service API using access token to scan label
@@ -114,7 +117,7 @@ sap.ui.define([
 						});
 					});
 				};
-
+				
 				getMLAccessToken.then(
 					function(data){
 						accessToken = data;
@@ -137,9 +140,9 @@ sap.ui.define([
 										if ((scanImageResult[i].substr(0, 5)) == "Batch") {
 											batchNo = scanImageResult[i].substr(6);
 										}
-
+										
 										MessageToast.show("1/3 - Machine Learning OCR service invoked successfully!");
-
+											
 										mainResolve(true);
 									}
 								} catch (err) {
@@ -153,7 +156,7 @@ sap.ui.define([
 		},
 
 		invokeHANAService: function (file, oView, oBusyIndicator, that) {
-
+			
 			return new Promise(
 				function(mainResolve, mainReject){
 					// Invoke the HANA service API to obtain master data of scanned product
@@ -171,9 +174,9 @@ sap.ui.define([
 								productMaster.category = response.d.category;
 								productMaster.unitPrice = response.d.unitPrice;
 								productMaster.unitsInStock = response.d.unitInStock;
-
+								
 								//var oView = that.getView();
-
+		
 								oView.byId("manufacturerID").setText(manufacturerName);
 								oView.byId("gtin").setText(gtin);
 								oView.byId("drugName").setText(drugName);
@@ -183,14 +186,19 @@ sap.ui.define([
 								oView.byId("category").setText(productMaster.category);
 								oView.byId("unitPrice").setText(productMaster.unitPrice);
 								oView.byId("unitsInStock").setText(productMaster.unitsInStock);
-
+								
 								MessageToast.show("2/3 - Communication with HANA ended successfully!");
-
+											
 								mainResolve(true);
 							}
 						},
 						error: function (request, status, error) {
-							mainReject("Caught - [ajax error] - HANA Request:" + request.responseText);
+							if (request.status === 404){ // If the record doesn't exist in HANA, it won't exist also in BC
+								mainReject("This pallet is not supposed to be dispatched today to distributor!");
+							}
+							else{
+								mainReject("Caught - [ajax error] - HANA Request:" + request.responseText);
+							}
 						}
 					});
 				}
@@ -200,7 +208,7 @@ sap.ui.define([
 		invokeHyperLedgerService: function (file, oView, oBusyIndicator, that) {
 			return new Promise(
 				function(mainResolve, mainReject){
-
+					
 					var getHLToken = new Promise(function(resolve, reject) {
 						// Obtain access token for the Blockchain service
 						$.ajax({
@@ -222,18 +230,18 @@ sap.ui.define([
 							// timeout: 5000
 						});
 					});
-
+					
 					var callHLServices = function(accessToken){
 						return new Promise(
 							function(resolve2, reject2){
 								//Generate random unique number for the transaction
 								var transactionId = Math.floor(Math.random() * 99999999);
 								var currentDate = new Date(Date.now()).toLocaleString().split(',')[0];
-
+								
 								oView.byId("manufacturerID").setText(manufacturerName);
 								oView.byId("gtin").setText(gtin);
 								oView.byId("drugName").setText(drugName);
-
+								
 								//Construct the payload
 								var payload = {
 									"ID": transactionId,
@@ -247,7 +255,7 @@ sap.ui.define([
 									"alias": drugName,
 									"description": drugName
 								};
-
+								
 								//Invoke the Hyperledger fabric API to update a record in the blockchain network
 								$.ajax({
 									url: "/blockchainservice",
@@ -280,7 +288,7 @@ sap.ui.define([
 													reject2(request.responseText);
 												}
 											});
-
+					
 										} catch (err) {
 											oBusyIndicator.close();
 											MessageToast.show("Caught - [ajax error] - HL Request 2:" + err.message);
@@ -294,9 +302,9 @@ sap.ui.define([
 									}
 								});
 							}
-						);
+						); 
 					};
-
+					
 					getHLToken.then(
 						function(data){
 							callHLServices(data).then(
@@ -306,7 +314,7 @@ sap.ui.define([
 										var p1 = {
 											reviews: []
 										};
-
+	
 										p1.reviews.push({
 											"manufacturer": results.manufacturer,
 											"pname": results.alias,
@@ -314,10 +322,10 @@ sap.ui.define([
 											"scanno": results.scanNo,
 											"serialno": results.serialNo,
 										});
-
+	
 										that.getView().getModel().setProperty("/reviews", p1.reviews);
 										mainResolve(true);
-
+	
 									} catch (err) {
 										mainReject("Caught - [ajax error] : " + err.message);
 									}
@@ -327,7 +335,7 @@ sap.ui.define([
 					);
 				}
 			);
-
+			
 		},
 
 		handleRouteMatched: function (oEvent) {
